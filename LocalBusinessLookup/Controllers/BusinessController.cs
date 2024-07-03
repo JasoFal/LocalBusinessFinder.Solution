@@ -17,6 +17,17 @@ namespace LocalBusiness.Controllers
         {
             return await _db.Businesses.ToListAsync();
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Businesses>> GetMessage([FromRoute] int id)
+        {
+            Businesses business = await _db.Businesses.FindAsync(id);
+            if (business == null)
+            {
+                return NotFound();
+            }
+            return business;
+        }
     }
 }
 
