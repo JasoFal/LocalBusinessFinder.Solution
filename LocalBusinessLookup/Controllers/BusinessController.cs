@@ -16,9 +16,16 @@ namespace LocalBusiness.Controllers
 
         // GET: api/businesses
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Business>>> Get()
+        public async Task<ActionResult<IEnumerable<Business>>> Get([FromQuery] string type)
         {
-            return await _db.Businesses.ToListAsync();
+            IQueryable<Business> query = _db.Businesses.AsQueryable();
+
+            if (type != null)
+            {
+                query = query.Where(entry => entry.Type == type);
+            }
+
+            return await query.ToListAsync();
         }
 
         // GET: api/businesses/7
