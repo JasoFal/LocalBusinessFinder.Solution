@@ -14,12 +14,14 @@ namespace LocalBusiness.Controllers
             _db = db;
         }
 
+        // GET: api/businesses
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Business>>> Get()
         {
             return await _db.Businesses.ToListAsync();
         }
 
+        // GET: api/businesses/7
         [HttpGet("{id}")]
         public async Task<ActionResult<Business>> GetBusiness([FromRoute] int id)
         {
@@ -31,6 +33,7 @@ namespace LocalBusiness.Controllers
             return business;
         }
 
+        // POST: api/businesses
         [HttpPost]
         public async Task<ActionResult<Business>> Post(Business business)
         {
@@ -39,6 +42,7 @@ namespace LocalBusiness.Controllers
             return CreatedAtAction(nameof(GetBusiness), new { id = business.BusinessId }, business);
         }
         
+        // PUT: api/businesses/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, Business business)
         {
@@ -68,6 +72,23 @@ namespace LocalBusiness.Controllers
         private bool BusinessExists(int id)
         {
             return _db.Businesses.Any(e => e.BusinessId == id);
+        }
+
+        // DELETE: api/businesses/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteMessage(int id)
+        {
+            Business business = await _db.Businesses.FindAsync(id);
+            if (business == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                _db.Businesses.Remove(business);
+                await _db.SaveChangesAsync();
+            }
+            return NoContent();
         }
     }
 }
