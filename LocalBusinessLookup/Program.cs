@@ -1,10 +1,13 @@
+using LocalBusiness.Models;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<BusinessContext>(
+builder.Services.AddDbContext<LocalBusinessContext>(
     dbContextOptions => dbContextOptions
         .UseMySql(
             builder.Configuration["ConnectionStrings:DefaultConnection"],
