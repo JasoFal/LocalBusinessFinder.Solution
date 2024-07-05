@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using LocalBusiness.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Cors;
 
 namespace LocalBusiness.Controllers
 {
@@ -15,8 +16,9 @@ namespace LocalBusiness.Controllers
         }
 
         // GET: api/businesses
+        [EnableCors("GetPolicy")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Business>>> Get([FromQuery] string type)
+        public async Task<ActionResult<IEnumerable<Business>>> Get([FromQuery] string type, int pageNumber = 1)
         {
             IQueryable<Business> query = _db.Businesses.AsQueryable();
 
@@ -25,10 +27,14 @@ namespace LocalBusiness.Controllers
                 query = query.Where(entry => entry.Type == type);
             }
 
-            return await query.ToListAsync();
+            return await query.OrderBy(entry => entry.Name)
+                .Skip((pageNumber - 1) * 5)
+                .Take(5)
+                .ToListAsync();
         }
 
         // GET: api/businesses/7
+        [EnableCors("GetPolicy")]
         [HttpGet("{id}")]
         public async Task<ActionResult<Business>> GetBusiness([FromRoute] int id)
         {
