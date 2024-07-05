@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using LocalBusiness.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LocalBusiness.Controllers
 {
@@ -6,7 +8,7 @@ namespace LocalBusiness.Controllers
     [Route("[controller]")]
     public class BusinessesController : ControllerBase
     {
-        private readonly LocalBusinessLookupContext _db;
+        private readonly LocalBusinessContext _db;
         public BusinessesController(LocalBusinessContext db)
         {
             _db = db;
@@ -19,14 +21,22 @@ namespace LocalBusiness.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Businesses>> GetMessage([FromRoute] int id)
+        public async Task<ActionResult<Business>> GetBusiness([FromRoute] int id)
         {
-            Businesses business = await _db.Businesses.FindAsync(id);
+            Business business = await _db.Businesses.FindAsync(id);
             if (business == null)
             {
                 return NotFound();
             }
             return business;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Business>> Post(Business business)
+        {
+            _db.Businesses.Add(business);
+            await _db.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetBusiness), new { id = business.BusinessId }, business);
         }
     }
 }
