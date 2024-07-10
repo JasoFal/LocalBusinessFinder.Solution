@@ -2,7 +2,7 @@
 
 #### By _**Jason Falk**_
 
-#### _A Fidgetech project._
+#### _A Fidgetech independent project._
 
 ## Technologies Used
 
@@ -17,15 +17,15 @@ _Local Business Lookup is an app that displays and stores information about loca
 
 ## Documentation
 
-GET: https://localhost:5000/Businesses
+GET: https://localhost:5000/businesses
 | Parameter |  Type  | Required | Description |
 |:-----|:--------:|:------:|-------: |
 | pagenumber   | int | required | Returns page matching pagenumber |
 | type   |  string  |   not required | Returns businesses with a matching type value |
 
 
-GET https://localhost:5000/Businesses?pagenumber=2
-GET https://localhost:5000/Businesses?type=restaurant
+GET https://localhost:5000/businesses?pagenumber=2
+GET https://localhost:5000/businesses?type=restaurant
 ----
 
 GET: https://localhost:5000/businesses/7
@@ -37,7 +37,7 @@ GET: https://localhost:5000/businesses/7
 
 POST: https://localhost:5000/businesses
 
-``When making a POST request to http://localhost:5000/api/Businesses/, you need to include a body. Here's an example body in JSON:``
+``When making a POST request to http://localhost:5000/api/businesses/, you need to include a body. Here's an example body in JSON:``
 
 ```JSON
 {
@@ -49,9 +49,9 @@ POST: https://localhost:5000/businesses
 
 ---
 
-PUT: https://localhost:5000/Businesses/20
+PUT: https://localhost:5000/businesses/20
 
-``When making a PUT request to http://localhost:5000/Businesses/, you need to include a body. Here's an example body in JSON:``
+``When making a PUT request to http://localhost:5000/businesses/, you need to include a body. Here's an example body in JSON:``
 ```JSON
 {
   "Name": "string",
@@ -65,7 +65,7 @@ PUT: https://localhost:5000/Businesses/20
 
 ----
 
-DELETE: https://localhost:5000/Businesses/7
+DELETE: https://localhost:5000/businesses/7
 
 | Parameter |  Type  | Required | Description |
 |:-----|:--------:|:------:|-------: |
